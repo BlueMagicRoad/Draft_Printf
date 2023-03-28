@@ -3,6 +3,7 @@
 /**
  * handle_format - Match format with corresponding format function
  * @specifier: Pointer to potential format specifier
+ * @handle_format: Pointer type
  *
  * Return: Pointer to function, if a format function is matched
  *         Otherwise: NULL

@@ -1,7 +1,7 @@
-include "main.h"
+#include "main.h"
 
 /**
- * convert_s - Convert argument to string
+ * convert_R - Convert a string to ROT13
  * @args: va_list pointing to argument
  * @flags: Flag modifiers
  * @wid: Width modifier
@@ -12,11 +12,13 @@ include "main.h"
  * Return: Number of bytes stored to buffer
  */
 
-unsigned int convert_s(va_list args, buffer_t *output,
+unsigned int convert_R(va_list args, buffer_t *output,
 		unsigned char flags, int wid, int prec, unsigned char len)
 {
+	char *alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	char *rot13 = "nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM";
 	char *str, *null = "(null)";
-	int size;
+	int i, j, size;
 	unsigned int ret = 0;
 
 	(void)flags;
@@ -32,11 +34,18 @@ unsigned int convert_s(va_list args, buffer_t *output,
 	ret += print_string_width(output, flags, wid, prec, size);
 
 	prec = (prec == -1) ? size : prec;
-	while (*str != '\0' && prec > 0)
+	for (i = 0; *(str + i) != '\0' && i < prec; i++)
 	{
-		ret += _memcpy(output, str, 1);
-		prec--;
-		str++;
+		for (j = 0; j < 52; j++)
+		{
+			if (*(str + i) == *(alpha + j))
+			{
+				ret += _memcpy(output, (rot13 + j), 1);
+				break;
+			}
+		}
+		if (j == 52)
+			ret += _memcpy(output, (str + i), 1);
 	}
 
 	ret += print_neg_width(output, ret, flags, wid);

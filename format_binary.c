@@ -23,4 +23,3 @@ unsigned int convert_b(va_list args, buffer_t *output,
 
 	return (convert_ubase(output, num, "01", flags, wid, prec));
 }
-

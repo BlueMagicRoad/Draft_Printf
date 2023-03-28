@@ -39,7 +39,7 @@ typedef struct buffer_s
 /**
  * struct converter_s - New type defining converter struct
  * @specifier: Char representing conversion specifier
- * @*func: Pointer to conversion function corresponding to specifier
+ * @func: Pointer to conversion function corresponding to specifier
  */
 
 typedef struct converter_s
@@ -120,4 +120,3 @@ unsigned int convert_ubase(buffer_t *output, unsigned long int num, char *base,
 void cleanup(va_list args, buffer_t *output);
 
 #endif
-
